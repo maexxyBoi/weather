@@ -10,36 +10,29 @@ I need to find the task sheet about pca again, wanna do that here too (still loo
 //import works bcs npm installed it prior
 const threeDForeCastEndPoint = 'https://www.met.ie/Open_Data/xml/web-3Dayforecast.xml';
 
-
-
-export function fetchWeatherData() {
-  return fetch(threeDForeCastEndPoint)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.text();
-  })
-  .then(data => {
-    //console.log(data);
-    parseAndUnpack(data);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-}
+//ok i am unsure why, but if i dont define fetchWeatherData with window. beforehand, the
+//browser code cant find it. apparently thats a es6 problem
+window.fetchWeatherData = async () => {
+  const response = await fetch('https://www.met.ie/Open_Data/xml/web-3Dayforecast.xml');
+  
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  
+  parseAndUnpack(response);
+};
 async function parseAndUnpack(response) {
-    let xmlText = response;
-
+    let xmlText = await response.text();
+    console.log(xmlText);
     let parser = new DOMParser();
     let parsedText = parser.parseFromString(xmlText, 'text/xml');
-
+    let stations = parsedText.getElementsByTagName('station');
     //For now we ' ll just output dublin.
-
-    parsedText.forecast.station.forEach(station => {
-        if (station.location === 'Dublin') {
-            console.log(station);
-        }
-    });
+    console.log(stations)
+    for (let i = 0; i < stations.length; i++) {
+      if (stations[i].getAttribute('location') === 'Dublin') {
+        console.log(stations[i]);
+      }
+    }
 }
 

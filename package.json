@@ -1,17 +1,33 @@
 {
   "name": "weather",
   "version": "1.0.0",
-  "description": "",
+  "description": "QUICKSTART:",
   "main": "fetcher.js",
   "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "fast-xml-parser": "^5.11.1",
-    "graphql": "^17.0.2"
+    "graphql": "^17.0.2",
+    "node-windows": "^1.0.0-beta.8",
+    "url": "^0.11.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maexxyBoi/weather.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maexxyBoi/weather/issues"
+  },
+  "homepage": "https://github.com/maexxyBoi/weather#readme",
+  "devDependencies": {
+    "electron": "^44.3.0",
+    "requirejs": "^2.3.8"
   }
 }

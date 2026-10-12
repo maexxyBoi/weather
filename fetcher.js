@@ -10,11 +10,15 @@ I need to find the task sheet about pca again, wanna do that here too (still loo
 //import works bcs npm installed it prior
 const THREE_DAY_FORECAST_ENDPOINT = 'https://www.met.ie/Open_Data/xml/web-3Dayforecast.xml';
 const LIST_ID = 'stationlist';
+const STATION_DETAILS = 'stationdetails';
 //ok i am unsure why, but if i dont define fetchWeatherData with window beforehand, the
 //browser code cant find it. apparently thats a es6 problem
 window.fetchWeatherData = async () => {
   const response = await fetch('https://www.met.ie/Open_Data/xml/web-3Dayforecast.xml');
-  
+  if (document.getElementById(LIST_ID).childNodes.length != 0)
+  {
+    return;
+  }
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
@@ -53,6 +57,7 @@ async function parseAndUnpack(response) {
 }
 async function unpackAndVisualizedDetails (station)
 {
-
+  let detailDiv = document.getElementById(STATION_DETAILS);
+  detailDiv.textContent = station.querySelector('location').textContent
 }
 

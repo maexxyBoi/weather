@@ -8,9 +8,9 @@ I need to find the task sheet about pca again, wanna do that here too (still loo
 */
 
 //import works bcs npm installed it prior
-const threeDForeCastEndPoint = 'https://www.met.ie/Open_Data/xml/web-3Dayforecast.xml';
-
-//ok i am unsure why, but if i dont define fetchWeatherData with window. beforehand, the
+const THREE_DAY_FORECAST_ENDPOINT = 'https://www.met.ie/Open_Data/xml/web-3Dayforecast.xml';
+const LIST_ID = 'stationlist';
+//ok i am unsure why, but if i dont define fetchWeatherData with window beforehand, the
 //browser code cant find it. apparently thats a es6 problem
 window.fetchWeatherData = async () => {
   const response = await fetch('https://www.met.ie/Open_Data/xml/web-3Dayforecast.xml');
@@ -27,12 +27,32 @@ async function parseAndUnpack(response) {
     let parser = new DOMParser();
     let parsedText = parser.parseFromString(xmlText, 'text/xml');
     let stations = parsedText.getElementsByTagName('station');
-    //For now we ' ll just output dublin.
     console.log(stations)
+
+    let list = document.getElementById(LIST_ID);
+    
+
     for (let i = 0; i < stations.length; i++) {
-      if (stations[i].getAttribute('location') === 'Dublin') {
-        console.log(stations[i]);
-      }
+
+      let station = stations[i];
+      let stationName = station.querySelector('location').textContent;
+      console.log(stationName);
+      let buttonNew = document.createElement('button')
+      let listItem = document.createElement('li')
+      
+      buttonNew.textContent = `${stationName}`;
+      buttonNew.style.cursor = 'pointer';
+
+      buttonNew.addEventListener('click', () => {
+        unpackAndVisualizedDetails(station)
+      });
+
+      listItem.appendChild(buttonNew);
+      list.appendChild(listItem);
     }
+}
+async function unpackAndVisualizedDetails (station)
+{
+
 }
 

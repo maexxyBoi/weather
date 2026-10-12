@@ -2,7 +2,15 @@
 <html>
 <body> <!-- use type=module to define that that js is a es6 module  file-->
     <script type="module" src="fetcher.js"></script>
-    <button type="button" onclick="fetchWeatherData()">Fetch weather data from Met Éireann Weather</button> 
+    <table>
 
+        <td style="background-color:#adc5db">
+            <button type="button" onclick="fetchWeatherData()">Fetch weather data from Met Éireann Weather</button> 
+            <ol id="stationlist"></ol>
+        </td>
+        <td style="background-color:#c5e1ed">
+            testext
+        </td>
+    </table>
 </body>
 </html>

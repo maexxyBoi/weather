@@ -27,23 +27,25 @@ window.fetchWeatherData = async () => {
 };
 async function parseAndUnpack(response) {
     let xmlText = await response.text();
-    console.log(xmlText);
+    //console.log(xmlText);
     let parser = new DOMParser();
     let parsedText = parser.parseFromString(xmlText, 'text/xml');
     let stations = parsedText.getElementsByTagName('station');
-    console.log(stations)
+    //console.log(stations)
 
     let list = document.getElementById(LIST_ID);
-    
 
     for (let i = 0; i < stations.length; i++) {
 
       let station = stations[i];
       let stationName = station.querySelector('location').textContent;
-      console.log(stationName);
+      //console.log(stationName);
       let buttonNew = document.createElement('button')
       let listItem = document.createElement('li')
-      
+
+      //debugging, just first station to print
+      i != 0 ? null : console.log(station);
+
       buttonNew.textContent = `${stationName}`;
       buttonNew.style.cursor = 'pointer';
 
@@ -57,7 +59,34 @@ async function parseAndUnpack(response) {
 }
 async function unpackAndVisualizedDetails (station)
 {
-  let detailDiv = document.getElementById(STATION_DETAILS);
-  detailDiv.textContent = station.querySelector('location').textContent
+  let nameTag = document.getElementById("name");
+
+  //TODO make it iterative
+  let day1 = document.getElementById("day1");
+  let day2 = document.getElementById("day2");
+  let day3 = document.getElementById("day3");
+  day1.innerText = "";
+  day2.innerText = "";
+  day3.innerText = "";
+
+  nameTag.innerText = station.querySelector('location').textContent
+  let days = station.querySelectorAll('day');
+
+  day1.innerText += days[0].querySelector("date").textContent.slice(0, 10);
+  day2.innerText += days[1].querySelector("date").textContent.slice(0, 10);
+  day3.innerText += days[2].querySelector("date").textContent.slice(0, 10);
+
+  day1.innerText += "\nMaximal Temperature: " + days[0].querySelector("max_temp").textContent;
+  day2.innerText += "\nMaximal Temperature: " + days[1].querySelector("max_temp").textContent;
+  day3.innerText += "\nMaximal Temperature: " + days[2].querySelector("max_temp").textContent;
+  day1.innerText += "\nMinimal Temperature: " + days[0].querySelector("min_temp").textContent;
+  day2.innerText += "\nMinimal Temperature: " + days[1].querySelector("min_temp").textContent;
+  day3.innerText += "\nMinimal Temperature: " + days[2].querySelector("min_temp").textContent;
+  day1.innerText += "\nWeather: " + days[0].querySelector("weather_text").textContent.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replaceAll("_", " ");
+  day2.innerText += "\nWeather: " + days[1].querySelector("weather_text").textContent.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replaceAll("_", " ");
+  day3.innerText += "\nWeather: " + days[2].querySelector("weather_text").textContent.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replaceAll("_", " ");
+  day1.innerText += "\nWeather Night: " + days[0].querySelector("weather_textN").textContent.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replaceAll("_", " ");
+  day2.innerText += "\nWeather Night: " + days[1].querySelector("weather_textN").textContent.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replaceAll("_", " ");
+  day3.innerText += "\nWeather Night: " + days[2].querySelector("weather_textN").textContent.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()).replaceAll("_", " ");
 }
 

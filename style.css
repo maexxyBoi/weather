@@ -1,8 +1,15 @@
 table {
-    height: 500px;
-    width: 100%;
+
+}
+td.left-column {
+  background-color: #adc5db;
 }
 
-td {
-    width: 100%;
+td.right-column {
+  background-color: #c5e1ed;
+  text-align: center;
+}
+#stationdetails td {
+    padding: 10px 25px ;
+    text-align: center;
 }

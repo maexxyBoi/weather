@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body> <!-- use type=module to define that that js is a es6 module  file-->
     <script type="module" src="fetcher.js"></script>
     <table>
 
-        <td style="background-color:#adc5db">
+        <td class="left-column">
             <button type="button" onclick="fetchWeatherData()">Fetch weather data from Met Éireann Weather</button> 
             <ol id="stationlist"></ol>
         </td>
-        <td style="background-color:#c5e1ed">
-            <div id="stationdetails"></div>
+        <td class="right-column">
+            <table id="stationdetails">
+                <td id="name"></td>
+                <td id="day1"></td>
+                <td id="day2"></td>
+                <td id="day3"></td>
+
+            </table>
+            <br>
+            <button type="button">Locally Compute Trend</button>
         </td>
     </table>
 </body>
